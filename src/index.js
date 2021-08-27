@@ -5,7 +5,7 @@ import { scheduleJob } from 'node-schedule';
 import { Client as DiscordClient } from 'discord.js';
 import whisparse from 'whisparse';
 
-import { notifyStreams, dailyRandoSeed } from 'scheduled';
+import { dailyRandoSeed } from 'scheduled';
 import { findCommand } from 'db';
 import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
 
@@ -48,10 +48,6 @@ client.on('message', async message => {
       reply: msg => message.reply(msg),
     });
   }
-});
-
-every(`${checkInterval} seconds`, () => {
-  notifyStreams(client)().catch(console.log);
 });
 
 scheduleJob('0 0 * * *', () => {
