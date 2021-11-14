@@ -1,8 +1,8 @@
 import { MessageEmbed } from 'discord.js';
-import { getCollection } from 'db';
+// import { getCollection } from 'db';
 
 import { RANDO_NEWS_CHANNEL_ID, EMBED_COLOR } from 'constants';
-import { getRandomizerSeed } from 'utils';
+import { getRandomizerSeed } from '../utils';
 
 const dailyRandoSeed = client => async () => {
   const seeds = await getCollection('seeds');

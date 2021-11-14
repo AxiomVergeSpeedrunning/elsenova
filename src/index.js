@@ -1,17 +1,17 @@
 import 'environment';
 
-import every from 'every.js';
 import { scheduleJob } from 'node-schedule';
-import { Client as DiscordClient } from 'discord.js';
+import { Client as DiscordClient, Intents } from 'discord.js';
 import whisparse from 'whisparse';
 
 import { dailyRandoSeed } from 'scheduled';
-import { findCommand } from 'db';
+import { Command, Alias } from 'db';
+import Connection from 'db/connection';
 import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
 
-import handlers from 'handlers';
+// import handlers from 'handlers';
 
-const client = new DiscordClient();
+const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const checkInterval = Number(process.env.TWITCH_INTERVAL || '30');
 
 client.on('ready', () => {

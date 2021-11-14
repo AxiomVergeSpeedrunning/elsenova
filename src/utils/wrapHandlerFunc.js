@@ -1,5 +1,4 @@
 import { PermissionsLevel } from 'enums';
-import { getLastTimestamp, setLastTimestamp } from 'db';
 
 const wrapHandlerFunc = handlerFunc => async args => {
   const {

@@ -112,3 +112,4 @@ temp/
 lib/
 .tern-port
 src/test.js
+*.db

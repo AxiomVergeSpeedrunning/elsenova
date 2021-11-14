@@ -1,7 +1,7 @@
-'use strict';
-
 module.exports = {
-  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 'latest',
+  },
   extends: ['airbnb-base', 'prettier'],
   plugins: ['prettier'],
   rules: {
@@ -11,9 +11,7 @@ module.exports = {
     // this is a NodeJS app
     'no-console': ['off'],
 
-    // we use mongo
-    'no-underscore-dangle': ['off'],
-
+    // I see where they're coming from, but nah
     'no-await-in-loop': ['off'],
   },
   settings: {

@@ -1,0 +1,12 @@
+{
+  "jsc": {
+    "target": "es5",
+    "baseUrl": "./src",
+    "paths": {
+      "*": ["./*", "./src/*", "./lib/*", "*", "../*"]
+    }
+  },
+  "module": {
+    "type": "commonjs"
+  }
+}
