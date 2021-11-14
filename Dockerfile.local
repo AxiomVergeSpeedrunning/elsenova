@@ -3,8 +3,6 @@ FROM node:latest
 RUN mkdir /code
 WORKDIR /code
 
-RUN yarn config set registry http://piracy.gov:4873/
-
 COPY package.json .
 COPY yarn.lock .
 
