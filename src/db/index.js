@@ -14,6 +14,8 @@ export const findCommand = async name => {
   if (aliasResult) {
     return Command.findOne({ where: { id: aliasResult.CommandId }, include: { all: true } });
   }
+
+  return null;
 };
 
 sequelize

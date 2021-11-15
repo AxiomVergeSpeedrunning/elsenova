@@ -1,6 +1,5 @@
 import { Command, Alias } from 'db';
 import connection from 'db/connection';
-import { readFile } from 'fs/promises';
 import lineReader from 'line-reader';
 
 (async () => {
@@ -10,6 +9,8 @@ import lineReader from 'line-reader';
   lineReader.eachLine(fileName, async line => {
     const data = JSON.parse(line);
     const { aliases, permissionsLevel, ...rest } = data;
+    // This is from Mongo
+    // eslint-disable-next-line no-underscore-dangle
     rest.name = rest._id;
     rest.permissionsLevel = permissionsLevel.$numberInt;
 

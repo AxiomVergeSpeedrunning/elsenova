@@ -5,13 +5,12 @@ import { Client as DiscordClient, Intents } from 'discord.js';
 import whisparse from 'whisparse';
 
 import { dailyRandoSeed } from 'scheduled';
-import { findCommand, Command, Alias } from 'db';
+import { findCommand } from 'db';
 import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
 
 import handlers from 'handlers';
 
 const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
-const checkInterval = Number(process.env.TWITCH_INTERVAL || '30');
 
 client.on('ready', () => {
   console.log('Ret-2-go!');

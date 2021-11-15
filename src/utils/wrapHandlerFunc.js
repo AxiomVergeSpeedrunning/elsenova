@@ -22,9 +22,10 @@ const wrapHandlerFunc = handlerFunc => async args => {
       Date.now() - cooldown >= lastUsed ||
       args.message.permissionsLevel >= overridesCooldown
     ) {
-      //setLastTimestamp(command);
       handlerFunc(args);
       if (handlerFunc.instance) {
+        // We're doing database things here
+        // eslint-disable-next-line no-param-reassign
         handlerFunc.instance.lastUsed = Date.now();
         await handlerFunc.instance.save();
       }

@@ -16,7 +16,7 @@ const addCommand = async ({ say, args, argsString }) => {
     return;
   }
 
-  const r = await Command.create({
+  await Command.create({
     name: name.toLowerCase(),
     output,
     aliases: [],
