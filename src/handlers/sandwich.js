@@ -1,15 +1,13 @@
-import { getCollection } from 'db';
+import { Sandwich } from 'db';
 
 const sandwich = async ({ say, argsString: item }) => {
-  const sandwiches = await getCollection('sandwiches');
-
-  const existing = await sandwiches.findOne({ name: item.toLowerCase() });
+  const existing = await Sandwich.findOne({ where: { name: item.toLowerCase() } });
   let isSandwich = Math.random() < 0.8;
 
-  if (existing !== null) {
+  if (existing) {
     isSandwich = existing.isSandwich;
   } else {
-    sandwiches.insertOne({ name: item.toLowerCase(), isSandwich });
+    await Sandwich.create({ name: item.toLowerCase(), isSandwich });
   }
 
   const a = ['a', 'e', 'i', 'o', 'u'].includes(item.toLowerCase()[0]) ? 'An' : 'A';

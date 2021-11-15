@@ -5,11 +5,10 @@ import { Client as DiscordClient, Intents } from 'discord.js';
 import whisparse from 'whisparse';
 
 import { dailyRandoSeed } from 'scheduled';
-import { Command, Alias } from 'db';
-import Connection from 'db/connection';
+import { findCommand, Command, Alias } from 'db';
 import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
 
-// import handlers from 'handlers';
+import handlers from 'handlers';
 
 const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const checkInterval = Number(process.env.TWITCH_INTERVAL || '30');
@@ -18,12 +17,12 @@ client.on('ready', () => {
   console.log('Ret-2-go!');
 });
 
-client.on('message', async message => {
+client.on('messageCreate', async message => {
   if (message.author.bot) {
     return;
   }
 
-  const parsed = whisparse(message.content);
+  const parsed = whisparse(message.content, { prefix: '~' });
   if (!parsed) {
     return;
   }
@@ -31,7 +30,9 @@ client.on('message', async message => {
   const dbCommand = await findCommand(parsed.command);
   const dbHandler = ({ say }) => say(dbCommand.output);
   if (dbCommand) {
-    dbHandler.command = dbCommand._id;
+    dbHandler.command = dbCommand.name;
+    dbHandler.aliases = dbCommand.Aliases.map(a => a.name);
+    dbHandler.instance = dbCommand;
     Object.assign(dbHandler, dbCommand);
   }
 

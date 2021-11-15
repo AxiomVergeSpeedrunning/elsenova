@@ -1,18 +1,17 @@
 import { MessageEmbed } from 'discord.js';
-// import { getCollection } from 'db';
+import { Seed } from 'db';
 
 import { RANDO_NEWS_CHANNEL_ID, EMBED_COLOR } from 'constants';
 import { getRandomizerSeed } from '../utils';
 
 const dailyRandoSeed = client => async () => {
-  const seeds = await getCollection('seeds');
   const now = new Date();
   let existing = true;
   let seed = '';
 
   while (existing) {
     seed = getRandomizerSeed();
-    existing = await seeds.findOne({ _id: seed });
+    existing = await Seed.findOne({ where: { value: seed } });
   }
 
   const month = now.toLocaleString('default', { month: 'long' });
@@ -31,7 +30,7 @@ const dailyRandoSeed = client => async () => {
       )
       .setTimestamp(),
   );
-  await seeds.insertOne({ _id: seed, created: now.valueOf() });
+  await Seed.create({ value: seed });
 };
 
 export default dailyRandoSeed;

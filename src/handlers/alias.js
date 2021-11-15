@@ -1,4 +1,4 @@
-import { getCollection, findCommand } from 'db';
+import { Alias, findCommand } from 'db';
 import { PermissionsLevel } from 'enums';
 
 const addAlias = async ({ say, args }) => {
@@ -7,7 +7,6 @@ const addAlias = async ({ say, args }) => {
     return;
   }
 
-  const commands = await getCollection('commands');
   let [name] = args;
   const aliases = args.slice(1);
 
@@ -22,14 +21,13 @@ const addAlias = async ({ say, args }) => {
     return;
   }
 
-  await commands.updateOne(
-    { _id: existing._id },
-    { $addToSet: { aliases: { $each: aliases.map(a => a.toLowerCase()) } } },
-  );
+  for (const alias of aliases) {
+    await Alias.create({ name: alias.toLowerCase(), CommandId: existing.id });
+  }
 
   const term = aliases.length > 1 ? 'aliases' : 'alias';
   const addedNames = aliases.map(a => a.toLowerCase()).join(', ');
-  await say(`Successfully added ${term} ${addedNames} to ${existing._id}`);
+  await say(`Successfully added ${term} ${addedNames} to ${existing.name}`);
 };
 
 addAlias.command = 'addalias';

@@ -1,7 +1,11 @@
 import Command from './command';
 import Alias from './alias';
 
-Command.hasMany(Alias);
+Command.hasMany(Alias, { onDelete: 'CASCADE' });
 Alias.belongsTo(Command);
 
-export { Command, Alias };
+export { default as Command } from './command';
+export { default as Alias } from './alias';
+export { default as Vore } from './vore';
+export { default as Seed } from './seed';
+export { default as Sandwich } from './sandwich';

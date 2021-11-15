@@ -3,7 +3,7 @@
   "scripts": {
     "build": "swc --copy-files --include-dotfiles --source-root ./src --source-maps inline -q src -d lib/",
     "prepublishOnly": "yarn build",
-    "dev": "yarn build; node lib/index.js",
+    "dev": "yarn build; node --enable-source-maps lib/index.js",
     "watch": "nodemon --exec 'yarn dev' -e '.js'",
     "start": "NODE_ENV=production node lib/index.js",
     "lint": "eslint ./src/",

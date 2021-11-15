@@ -1,5 +1,5 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../connection';
+import sequelize from 'db/connection';
 
 class Alias extends Model {}
 Alias.init(

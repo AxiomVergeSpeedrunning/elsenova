@@ -1,34 +1,21 @@
-import { getCollection } from 'db';
+import { Vore } from 'db';
 
-const vore = async ({ say }) => {
-  const counters = await getCollection('counters');
-  const now = Math.floor(Date.now() / 1000);
+const vore = async ({ say, message }) => {
+  const lastVore = await Vore.findOne({ order: [['timestamp', 'DESC']] });
+  console.log((Date.now() - lastVore.timestamp) / 1000);
 
-  let data = await counters.findOne({ name: '!vore' });
+  if (!lastVore || (Date.now() - lastVore.timestamp) / 1000 > 300) {
+    await Vore.create({ user: message.author.id });
 
-  if (data === null) {
-    counters.insertOne({ name: '!vore', count: 0, timestamp: 0 });
+    const count = (await Vore.count()) + Number(process.env.VORE_BASE);
+    const timeLabel = count === 1 ? 'time' : 'times';
+    const admonishment = count === 420 ? '*Nice*.' : 'Stop it.';
 
-    data = await counters.findOne({ name: '!vore' });
-  }
-
-  if (now - data.timestamp < 300) {
-    say("It hasn't even been 5 minutes, you're basically still talking about vore.");
+    say(`We've talked about vore ${count} ${timeLabel} now. ${admonishment}`);
     return;
   }
 
-  const newData = { ...data};
-
-  newData.timestamp = now;
-  newData.count += 1;
-  await counters.update(data, newData, {});
-
-  data = Object.assign(data, newData);
-
-  const timeLabel = data.count === 1 ? 'time' : 'times';
-  const admonishment = data.count === 420 ? '*Nice*.' : 'Stop it.';
-
-  say(`We've talked about vore ${data.count} ${timeLabel} now. ${admonishment}`);
+  say("It hasn't even been 5 minutes, you're basically still talking about vore.");
 };
 
 vore.command = 'vore';

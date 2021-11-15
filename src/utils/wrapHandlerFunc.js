@@ -15,14 +15,19 @@ const wrapHandlerFunc = handlerFunc => async args => {
 
   // Don't hit the DB unless we need to
   if (commandMatches && permissionsMatch) {
-    const lastUsedTimestamp = await getLastTimestamp(command);
+    const { lastUsed } = command;
 
     if (
-      Date.now() - cooldown >= lastUsedTimestamp ||
+      !lastUsed ||
+      Date.now() - cooldown >= lastUsed ||
       args.message.permissionsLevel >= overridesCooldown
     ) {
-      setLastTimestamp(command);
+      //setLastTimestamp(command);
       handlerFunc(args);
+      if (handlerFunc.instance) {
+        handlerFunc.instance.lastUsed = Date.now();
+        await handlerFunc.instance.save();
+      }
     }
   }
 };

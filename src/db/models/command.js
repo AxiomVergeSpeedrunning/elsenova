@@ -1,13 +1,19 @@
 import { DataTypes, Model } from 'sequelize';
-import sequelize from '../connection';
+import sequelize from 'db/connection';
 
 class Command extends Model {}
 Command.init(
   {
     name: DataTypes.STRING,
     output: DataTypes.STRING,
-    permissionsLevel: DataTypes.STRING,
-    lastUsed: DataTypes.DATE,
+    permissionsLevel: {
+      type: DataTypes.INTEGER,
+      default: 0,
+    },
+    lastUsed: {
+      type: DataTypes.DATE,
+      defaultValue: DataTypes.NOW,
+    },
   },
   {
     sequelize,

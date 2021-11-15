@@ -1,8 +1,7 @@
-import { getCollection, findCommand } from 'db';
+import { findCommand } from 'db';
 import { PermissionsLevel } from 'enums';
 
 const editCommand = async ({ say, args, argsString }) => {
-  const commands = await getCollection('commands');
   let [name] = args;
   const output = argsString.replace(`${name} `, '');
 
@@ -17,7 +16,9 @@ const editCommand = async ({ say, args, argsString }) => {
     return;
   }
 
-  await commands.updateOne(existing, { $set: { output } });
+  existing.output = output;
+  await existing.save();
+
   await say(`Successfully edited command ${name}`);
 };
 

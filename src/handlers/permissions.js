@@ -1,4 +1,4 @@
-import { getCollection, findCommand } from 'db';
+import { findCommand } from 'db';
 import { PermissionsLevel } from 'enums';
 
 const setPermissions = async ({ args, say }) => {
@@ -9,14 +9,14 @@ const setPermissions = async ({ args, say }) => {
 
   const [name, level] = args;
 
-  const commands = await getCollection('commands');
   const existing = await findCommand(name);
 
   if (Number.isNaN(level) || Number(level) > PermissionsLevel.STREAMER || Number(level) < 0) {
     await say('Invalid choice!');
   }
 
-  await commands.updateOne({ _id: existing._id }, { $set: { permissionsLevel: Number(level) } });
+  existing.permissionsLevel = Number(level);
+  await existing.save();
   await say('Updated permissions level!');
 };
 

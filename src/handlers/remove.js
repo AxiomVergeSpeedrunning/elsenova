@@ -1,4 +1,4 @@
-import { getCollection, findCommand } from 'db';
+import { findCommand } from 'db';
 import { PermissionsLevel } from 'enums';
 
 const delCommand = async ({ say, args, argsString }) => {
@@ -8,7 +8,6 @@ const delCommand = async ({ say, args, argsString }) => {
     return;
   }
 
-  const commands = await getCollection('commands');
   let name = argsString;
 
   if (name.startsWith('!')) {
@@ -22,9 +21,7 @@ const delCommand = async ({ say, args, argsString }) => {
     return;
   }
 
-  await commands.deleteOne({
-    _id: existing._id,
-  });
+  await existing.destroy();
   await say(`Successfully deleted command ${name}`);
 };
 
