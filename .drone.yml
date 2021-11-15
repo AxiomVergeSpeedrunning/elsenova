@@ -13,6 +13,9 @@ trigger:
 steps:
   - name: Publish
     image: plugins/docker
+    environment:
+      YARN_REGISTRY:
+        from_secret: npm_registry_url
     settings:
       repo: markrawls/elsenova
       tags: latest
