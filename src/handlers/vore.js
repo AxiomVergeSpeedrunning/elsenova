@@ -2,7 +2,6 @@ import { Vore } from 'db';
 
 const vore = async ({ say, message }) => {
   const lastVore = await Vore.findOne({ order: [['timestamp', 'DESC']] });
-  console.log((Date.now() - lastVore.timestamp) / 1000);
 
   if (!lastVore || (Date.now() - lastVore.timestamp) / 1000 > 300) {
     await Vore.create({ user: message.author.id });
