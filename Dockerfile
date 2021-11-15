@@ -1,4 +1,4 @@
-FROM node:latest as build
+FROM node:alpine as build
 
 RUN mkdir /code
 WORKDIR /code
@@ -12,7 +12,7 @@ RUN yarn build
 
 CMD ["yarn", "start"]
 
-FROM node:latest
+FROM node:alpine
 
 COPY --from=build /code/lib/index.js .
 
