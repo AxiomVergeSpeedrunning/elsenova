@@ -1,6 +1,7 @@
 FROM node:alpine as build
 
 RUN apk add sqlite sqlite-dev sqlite-libs python3
+ENV PYTHON=python3
 
 RUN mkdir /code
 WORKDIR /code
