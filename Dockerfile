@@ -11,16 +11,13 @@ COPY . .
 RUN rm -f .env
 
 RUN yarn install
+RUN yarn build
 RUN yarn compile
-
-CMD ["yarn", "start"]
 
 FROM node:latest
 
 RUN apt-get update
 RUN apt-get install -y sqlite3
-
-RUN apk add make gcc sqlite sqlite-dev sqlite-libs python2
 
 COPY --from=build /code/lib/index.js .
 
