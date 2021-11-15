@@ -21,7 +21,7 @@ client.on('messageCreate', async message => {
     return;
   }
 
-  const parsed = whisparse(message.content, { prefix: '~' });
+  const parsed = whisparse(message.content);
   if (!parsed) {
     return;
   }
