@@ -13,5 +13,6 @@ trigger:
 steps:
   - name: Publish
     image: plugins/docker
-    commands:
-      - markrawls/elsenova
+    settings:
+      repo: markrawls/elsenova
+      tags: latest
