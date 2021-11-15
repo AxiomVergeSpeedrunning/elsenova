@@ -1,6 +1,6 @@
 FROM node:alpine as build
 
-RUN apk add sqlite sqlite-dev sqlite-libs python2
+RUN apk add make sqlite sqlite-dev sqlite-libs python2
 ENV PYTHON=python2
 
 RUN mkdir /code
@@ -17,7 +17,7 @@ CMD ["yarn", "start"]
 
 FROM node:alpine
 
-RUN apk add sqlite sqlite-dev sqlite-libs python2
+RUN apk add make sqlite sqlite-dev sqlite-libs python2
 
 COPY --from=build /code/lib/index.js .
 
