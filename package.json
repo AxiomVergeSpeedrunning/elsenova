@@ -6,6 +6,7 @@
     "dev": "yarn build; node --enable-source-maps lib/index.js",
     "watch": "nodemon --exec 'yarn dev' -e '.js'",
     "start": "NODE_ENV=production node lib/index.js",
+    "compile": "ncc build lib/index.js -o lib",
     "lint": "eslint ./src/",
     "fix": "eslint ./src/ --fix",
     "test": "babel-node src/test.js"
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@swc/cli": "^0.1.51",
     "@swc/core": "^1.2.108",
+    "@vercel/ncc": "^0.31.1",
     "eslint": "^7.24.0",
     "eslint-config-airbnb-base": "^14.2.1",
     "eslint-config-prettier": "^8.2.0",
