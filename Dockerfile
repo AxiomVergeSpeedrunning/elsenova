@@ -1,6 +1,6 @@
 FROM node:alpine as build
 
-RUN apk add sqlite
+RUN apk add sqlite sqlite-dev sqlite-libs
 
 RUN mkdir /code
 WORKDIR /code
@@ -16,7 +16,7 @@ CMD ["yarn", "start"]
 
 FROM node:alpine
 
-RUN apk add sqlite
+RUN apk add sqlite sqlite-dev sqlite-libs
 
 COPY --from=build /code/lib/index.js .
 
