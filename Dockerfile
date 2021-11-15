@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:latest as build
 
 RUN mkdir /code
 WORKDIR /code
@@ -11,3 +11,9 @@ RUN yarn install
 RUN yarn build
 
 CMD ["yarn", "start"]
+
+FROM node:latest
+
+COPY --from=build /code/lib/index.js .
+
+CMD ["node", "index.js"]
