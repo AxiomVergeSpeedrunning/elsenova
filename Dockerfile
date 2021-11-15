@@ -1,7 +1,7 @@
-FROM node:alpine as build
+FROM node:latest as build
 
-RUN apk add make gcc sqlite sqlite-dev sqlite-libs python2
-ENV PYTHON=python2
+RUN apt-get update
+RUN apt-get install sqlite3 sqlite3-dev build-essential gcc
 
 RUN mkdir /code
 WORKDIR /code
@@ -11,11 +11,14 @@ COPY . .
 RUN rm -f .env
 
 RUN yarn install
-RUN yarn build
+RUN yarn compile
 
 CMD ["yarn", "start"]
 
-FROM node:alpine
+FROM node:latest
+
+RUN apt-get update
+RUN apt-get install sqlite3 sqlite3-dev build-essential gcc
 
 RUN apk add make gcc sqlite sqlite-dev sqlite-libs python2
 
