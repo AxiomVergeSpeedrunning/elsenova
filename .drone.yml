@@ -17,7 +17,7 @@ steps:
       YARN_REGISTRY:
         from_secret: npm_registry_url
     settings:
-      repo: cluster.egov:5000/elsenova
+      repo: cluster.gov:5000/elsenova
       tags:
         - latest
       registry: cluster.gov:5000
