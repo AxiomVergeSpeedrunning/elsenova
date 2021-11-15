@@ -1,5 +1,7 @@
 FROM node:alpine as build
 
+RUN apk add sqlite
+
 RUN mkdir /code
 WORKDIR /code
 
@@ -13,6 +15,8 @@ RUN yarn build
 CMD ["yarn", "start"]
 
 FROM node:alpine
+
+RUN apk add sqlite
 
 COPY --from=build /code/lib/index.js .
 
