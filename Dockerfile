@@ -8,7 +8,7 @@ WORKDIR /code
 
 COPY . .
 
-RUN rm .env
+RUN rm -f .env
 
 RUN yarn install
 RUN yarn build
