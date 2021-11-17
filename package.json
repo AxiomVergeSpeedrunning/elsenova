@@ -8,7 +8,7 @@
     "start": "NODE_ENV=production node lib/index.js",
     "compile": "ncc build lib/index.js -o lib",
     "lint": "eslint ./src/",
-    "fix": "eslint ./src/ --fix",
+    "fix": "eslint ./src/ --fix"
   },
   "nodemonConfig": {
     "ignore": [
