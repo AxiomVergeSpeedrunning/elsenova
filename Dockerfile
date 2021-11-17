@@ -7,7 +7,7 @@ COPY . .
 
 RUN rm -f .env
 
-RUN yarn install
-RUN yarn build
+RUN npm install
+RUN npm run build
 
-CMD ["yarn", "start"]
+CMD ["npm", "run", "start"]
