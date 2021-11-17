@@ -1,6 +1,4 @@
-FROM node:alpine
-
-RUN apk add python2
+FROM node:latest
 
 RUN mkdir /code
 WORKDIR /code
