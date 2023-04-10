@@ -8,7 +8,7 @@ platform:
 
 trigger:
   branch:
-    - master
+    - main
 
 steps:
   - name: Publish
