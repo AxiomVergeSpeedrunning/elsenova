@@ -13,9 +13,6 @@ trigger:
 steps:
   - name: Publish
     image: plugins/docker
-    environment:
-      YARN_REGISTRY:
-        from_secret: npm_registry_url
     settings:
       repo: cluster.gov:5000/elsenova
       tags:

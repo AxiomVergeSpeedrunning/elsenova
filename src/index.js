@@ -1,16 +1,20 @@
+import { dailyRandoSeed } from './scheduled';
+import { findCommand } from 'db';
+import { Client as DiscordClient, GatewayIntentBits } from 'discord.js';
 import 'environment';
-
+import handlers from 'handlers';
 import { scheduleJob } from 'node-schedule';
-import { Client as DiscordClient, Intents } from 'discord.js';
+import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
 import whisparse from 'whisparse';
 
-import { dailyRandoSeed } from 'scheduled';
-import { findCommand } from 'db';
-import { wrapHandlerFunc, getPermissionsLevel } from 'utils';
-
-import handlers from 'handlers';
-
-const client = new DiscordClient({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const client = new DiscordClient({
+  intents: [
+    GatewayIntentBits.Guilds,
+    GatewayIntentBits.GuildMessages,
+    GatewayIntentBits.MessageContent,
+    GatewayIntentBits.GuildMembers,
+  ],
+});
 
 client.on('ready', () => {
   console.log('Ret-2-go!');
@@ -50,7 +54,7 @@ client.on('messageCreate', async message => {
   }
 });
 
-scheduleJob('0 0 * * *', () => {
+scheduleJob('0 7 * * *', () => {
   dailyRandoSeed(client)().catch(console.log);
 });
 
