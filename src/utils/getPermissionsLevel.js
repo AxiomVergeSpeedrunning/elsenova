@@ -1,8 +1,8 @@
+import { MOD_ROLE_ID, JR_MOD_ROLE_ID } from 'constants';
 import { PermissionsLevel } from 'enums';
-import { MOD_ROLE_ID } from 'constants';
 
 const getPermissionsLevel = message => {
-  if (message.member.roles.cache.some(role => role.id === MOD_ROLE_ID)) {
+  if (message.member.roles.cache.some(role => [MOD_ROLE_ID, JR_MOD_ROLE_ID].includes(role.id))) {
     return PermissionsLevel.MOD;
   }
 
