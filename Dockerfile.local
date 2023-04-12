@@ -4,8 +4,8 @@ RUN mkdir /code
 WORKDIR /code
 
 COPY package.json .
-COPY yarn.lock .
+COPY package-lock.json .
 
-RUN yarn install
+RUN npm install
 
-CMD ["yarn", "watch"]
+CMD ["npm", "run", "watch"]

@@ -2,9 +2,9 @@
   "license": "MIT",
   "scripts": {
     "build": "swc --copy-files --include-dotfiles --source-root ./src --source-maps inline -q src -d lib/",
-    "prepublishOnly": "yarn build",
-    "dev": "yarn build; node --enable-source-maps lib/index.js",
-    "watch": "nodemon --exec 'yarn dev' -e '.js'",
+    "prepublishOnly": "npm run build",
+    "dev": "npm run build; node --enable-source-maps lib/index.js",
+    "watch": "nodemon --exec 'npm run dev' -e '.js'",
     "start": "NODE_ENV=production node lib/index.js",
     "compile": "ncc build lib/index.js -o lib",
     "lint": "eslint ./src/",
