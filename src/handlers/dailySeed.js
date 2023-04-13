@@ -18,11 +18,6 @@ const dailySeed = async ({ message }) => {
   const dateString = `${now.getDate()} ${month} ${now.getFullYear()}`;
 
   const { channel } = message;
-  const thread = await channel.threads.create({
-    name: `Daily seed - ${seed} - ${dateString}`,
-    reason: 'Daily seed',
-  });
-  await message.delete();
 
   const embed = new EmbedBuilder()
     .setColor(EMBED_COLOR)
@@ -33,7 +28,14 @@ const dailySeed = async ({ message }) => {
       { name: 'Date', value: dateString, inline: true },
     )
     .setTimestamp();
-  await thread.send({ embeds: [embed] });
+
+  await channel.threads.create({
+    name: `Daily seed - ${seed} - ${dateString}`,
+    reason: 'Daily seed',
+    message: { embeds: [embed] },
+  });
+  await message.delete();
+
   await Seed.create({ value: seed });
 };
 
