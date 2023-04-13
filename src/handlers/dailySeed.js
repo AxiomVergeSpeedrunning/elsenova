@@ -1,7 +1,7 @@
 import { getRandomizerSeed } from '../utils';
 import { EMBED_COLOR } from 'constants';
 import { Seed } from 'db';
-import { EmbedBuilder } from 'discord.js';
+import { EmbedBuilder, ThreadAutoArchiveDuration } from 'discord.js';
 import { PermissionsLevel } from 'enums';
 
 const dailySeed = async ({ message }) => {
@@ -31,6 +31,7 @@ const dailySeed = async ({ message }) => {
 
   await channel.threads.create({
     name: `Daily seed - ${seed} - ${dateString}`,
+    autoArchiveDuration: ThreadAutoArchiveDuration.ThreeDays,
     reason: 'Daily seed',
     message: { embeds: [embed] },
   });
